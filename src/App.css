@@ -1,13 +1,20 @@
+*{
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .container {
 	min-height: 95vh;
 	max-width: 1140px;
-	display: flex;
-	justify-content: center;
+	/* display: flex; */
+	/* justify-content: center; */
 	flex-wrap: wrap;
-	margin: 0 auto;
+	/* margin: 0 auto; */
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.container.virtical--center {
+.container.vertical--center {
 	align-items: center;
 }
 
@@ -39,4 +46,22 @@ footer {
 	padding: 50px;
 	border-radius: 10px;
 	min-width: 100%;
+}
+
+.fillerMemeBackground{
+	border: solid black 5px;
+	height: 510px;
+	width: 510px;
+}
+
+.caption{
+	font-size: large;
+	font-style: bold;
+	background-color: gray;
+	width: fit-content;
+	left: 0px;
+}
+
+button{
+	right: 0px;	
 }
