@@ -5,21 +5,19 @@ import './App.css';
 
 import Header from './components/Header';
 import Meme from './components/Meme'
+// import MemeList from './components/MemeList'
 
 export default class App extends Component {
-	constructor(){
-		super()
-		this.state = {
-			memeImages: {},
-			topText: '',
-			bottomText: '',
-			isLoading: true,
-			randomNum: Math.floor(Math.random() * 100),
-			customMemes: []
-		};
-		this.handleChange=this.handleChange.bind(this)
-		this.submitMeme=this.submitMeme.bind(this)
-	}
+
+	state = {
+		memeImages: {},
+		topText: '',
+		bottomText: '',
+		isLoading: true,
+		randomNum: Math.floor(Math.random() * 100),
+		customMemes: [],
+	};
+
 
 	loadMemeImages = () => {
 		Axios.get('https://api.imgflip.com/get_memes').then((resonse) => {
@@ -31,7 +29,7 @@ export default class App extends Component {
 		});
 	};
 
-	handleChange(event){
+	handleChange = (event) => {
 		event.preventDefault()
 		const {name, value} = event.target
 		this.setState({
@@ -39,32 +37,36 @@ export default class App extends Component {
 		})
 	}
 
-	submitMeme(event){
+	submitMeme = (event) => {
 		event.preventDefault()
-		this.setState(prevState => {
-			if(this.state.topText !== '' || this.state.bottomText !== ''){
+		const styles = {
+			backgroundImage: `url(${this.state.memeImages[this.state.randomNum].url})`,
+			backgroundRepeat: 'no-repeat',
+			backgroundSize: 'contain',
+			width: 500,
+			height: 500,
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'space-between',
+			textAlign: 'center',
+		};
+		if(this.state.topText !== '' || this.state.bottomText !== ''){
+			this.setState(prevState => {
 				return{
 					customMemes: [
 						prevState.customMemes,
-						<div 
-						backgroundImage={`url(${this.state.memeImages[this.state.randomNum].url})`}
-						backgroundRepeat= 'no-repeat'
-						backgroundSize= 'contain'
-						width= '500px'
-						height= '500px'
-						display= 'flex'
-						flexDirection= 'column'
-						justifyContent= 'space-between'
-						textAlign= 'center'>
-							<p name='topText'>{this.state.topText}</p>
-							<p name='bottomText'>{this.state.bottomText}</p>
+						<div style={styles}>
+							<p name='topText' className='caption'>{this.state.topText}</p>
+							<p name='bottomText' className='caption'>{this.state.bottomText}</p>
 						</div>
 					]
 				}
-			} else{
-				alert('Please fill out either the top text box or bottom text box')
-			}
-		})
+			})
+		
+		} else{
+			alert('Please fill out either the top text box or bottom text box')
+		}
+		
 	}
 
 	newImage = (event) => {
@@ -86,22 +88,6 @@ export default class App extends Component {
 
 		const memeList = this.state.customMemes.map(meme => <div>{meme}</div>)
 
-		// const styles = {
-		// 	backgroundImage: `url(${
-		// 		!this.state.isLoading
-		// 			? this.state.memeImages[this.state.randomNum].url
-		// 			: null
-		// 	})`,
-		// 	backgroundRepeat: 'no-repeat',
-		// 	backgroundSize: 'contain',
-		// 	width: 500,
-		// 	height: 500,
-		// 	display: 'flex',
-		// 	flexDirection: 'column',
-		// 	justifyContent: 'space-between',
-		// 	textAlign: 'center',
-		// };
-
 		return (
 			<div className='container '>
 				<div className='content'>
@@ -118,24 +104,20 @@ export default class App extends Component {
 						randomNum = {this.state.randomNum}
 						click = {this.submitMeme}
 						handleChange = {this.handleChange}
-						customMemes = {this.state.customMemes}
 						loadMemeImages = {this.loadMemeImages}
 						submitMeme = {this.submitMeme}
 						/>
-				{/* <form>
-					<button onClick={this.newImage}>Refresh Meme Page</button>
-					<div className='fillerMemeBackground'>
-					<div style={styles}>
-					<input placeholder='Top Text' value={this.state.topText} name='topText' onChange={this.handleChange}/>
-					<p className='caption'>{this.state.topText}</p>
-					<p className='caption'>{this.state.bottomText}</p>
-					<input placeholder='Bottom Text' value={this.state.bottomText} name='bottomText' onChange={this.handleChange}/>
-					</div>
-					</div>
-					<button onClick={this.submitMeme}>Create Meme</button>
-				</form> */}
 				</div>
 				<footer></footer>
+				{/* <MemeList
+					topText = {this.state.topText}
+					bottomText = {this.state.bottomText}
+					newImage = {this.newImage}
+					memeImages = {this.state.memeImages}
+					randomNum = {this.state.randomNum}
+					customMemes = {this.state.customMemes}
+				/> */}
+
 				<div>
 					{memeList}
 				</div>

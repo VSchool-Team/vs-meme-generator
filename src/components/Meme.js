@@ -19,7 +19,6 @@ export default function Meme(props) {
         textAlign: 'center',
     };
 
-    // const memeList = props.customMemes.map(meme => <div>{meme}</div>)
 
     return (
         <div>
@@ -35,9 +34,6 @@ export default function Meme(props) {
 				<input placeholder='Bottom Text' autoComplete='off' value={props.bottomText} name='bottomText' onChange={props.handleChange}/>
 				<button onClick={props.submitMeme}>Create Meme</button>
 			</form>
-            <div>
-                {/* {memeList} */}
-            </div>
         </div>
     )
 }
