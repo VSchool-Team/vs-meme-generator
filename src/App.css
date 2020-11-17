@@ -1,19 +1,28 @@
+*{
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .container {
 	min-height: 95vh;
 	max-width: 1140px;
-	display: flex;
+	/* display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
 	margin: 0 auto;
+	margin-left: auto;
+	margin-right: auto; */
+	justify-content: center;
+
 }
 
-.container.virtical--center {
+/* .container.vertical--center {
 	align-items: center;
-}
+} */
 
-.container.columns {
+/* .container.columns {
 	flex-direction: column;
-}
+} */
 
 header {
 	text-align: center;
@@ -40,3 +49,20 @@ footer {
 	border-radius: 10px;
 	min-width: 100%;
 }
+
+.fillerMemeBackground{
+	border: solid black 5px;
+	height: 510px;
+	width: 510px;
+}
+
+.caption{
+	font-size: large;
+	font-style: bold;
+	color: whitesmoke;
+	background-color: black;
+	width: fit-content;
+	height: fit-content;
+	left: 0px;
+}
+
