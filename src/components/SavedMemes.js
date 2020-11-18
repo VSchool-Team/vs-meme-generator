@@ -1,7 +1,6 @@
 import React from 'react';
 
 const SavedMemes = (props) => {
-	console.log(props.meme);
 	const styles = {
 		backgroundImage: `url(${props.meme.url})`,
 		backgroundRepeat: 'no-repeat',
