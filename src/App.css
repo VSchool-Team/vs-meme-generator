@@ -1,4 +1,4 @@
-*{
+* {
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -13,7 +13,6 @@
 	margin-left: auto;
 	margin-right: auto; */
 	justify-content: center;
-
 }
 
 /* .container.vertical--center {
@@ -50,13 +49,13 @@ footer {
 	min-width: 100%;
 }
 
-.fillerMemeBackground{
+.fillerMemeBackground {
 	border: solid black 5px;
 	height: 510px;
 	width: 510px;
 }
 
-.caption{
+.caption {
 	font-size: large;
 	font-style: bold;
 	color: whitesmoke;
@@ -66,3 +65,13 @@ footer {
 	left: 0px;
 }
 
+.flex-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: space-between;
+}
+
+.meme-item {
+	margin: 15px;
+}
