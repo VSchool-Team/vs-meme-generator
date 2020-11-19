@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import {generateUniqueId} from './services.js'
 
 import './App.css';
 
@@ -39,6 +40,8 @@ export default class App extends Component {
 
 	submitMeme = (event) => {
 		event.preventDefault()
+		this.setState({topText: ''})
+		this.setState({bottomText: ''})
 		const styles = {
 			backgroundImage: `url(${this.state.memeImages[this.state.randomNum].url})`,
 			backgroundRepeat: 'no-repeat',
@@ -54,11 +57,13 @@ export default class App extends Component {
 			this.setState(prevState => {
 				return{
 					customMemes: [
-						prevState.customMemes,
+						...prevState.customMemes,
+						{id: generateUniqueId(), styles, editing: false, topText: this.state.topText, bottomText: this.state.bottomText, html:
 						<div style={styles}>
 							<p name='topText' className='caption'>{this.state.topText}</p>
 							<p name='bottomText' className='caption'>{this.state.bottomText}</p>
 						</div>
+						}
 					]
 				}
 			})
@@ -84,9 +89,49 @@ export default class App extends Component {
 		this.loadMemeImages();
 	}
 
-	render() {
+	deleteButton = (id) => {
+		this.setState((prevState) => ({
+			customMemes: prevState.customMemes.filter(meme => meme.id !== id)
+		}))
+	}
 
-		const memeList = this.state.customMemes.map(meme => <div>{meme}</div>)
+	editButton = (meme) => {
+		meme.editing = true
+	}
+
+	saveEdit = (meme) => {
+		const top = meme.topText
+		const bottom = meme.bottomText
+		const styles = meme.styles
+		const newMeme = this.state.customMemes.find(val => val.id === meme.id);
+		newMeme.html =
+			<div style={styles}>
+				<p name='topText' className='caption'>{top}</p>
+				<p name='bottomText' className='caption'>{bottom}</p>
+			</div>
+		this.setState(prevState => {
+			const newState = prevState.customMemes.filter(val => val.id !== meme.id)
+			newState.push(newMeme)
+			return {customMemes: newState}
+		})
+		meme.editing = false
+	}
+
+	render() {
+		const memeList = this.state.customMemes.map(meme => 
+				<div>
+					{meme.html}
+					{meme.editing && 
+						<div>
+							<input type="text" placeholder="Top Text" onChange={(e) => meme.topText = e.target.value} contentEditable/>
+							<input type="text" placeholder="Bottom Text" onChange={(e) => meme.bottomText = e.target.value} contentEditable/>
+							<button type="button" onClick={() => this.saveEdit(meme)}>Save</button>
+						</div>
+					}
+					<button onClick={() => this.deleteButton(meme.id)} type="button">Delete</button>
+					<button onClick={() => this.editButton(meme)} type="button">Edit</button>
+				</div>
+			)
 
 		return (
 			<div className='container '>
